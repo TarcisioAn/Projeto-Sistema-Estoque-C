@@ -1,17 +1,6 @@
-#include <stdio.h>
-#include <string.h>
-#include <locale.h>
+#include "estoque.h"
 
-#define MAX_PRODUTOS 100
-
-typedef struct {
-    int codigo;
-    char nome[100];
-    int quantidade;
-    float preco;
-} Produto;
-
-Produto produtos[MAX_PRODUTOS];
+Produto produtos[MAX_PRODUTOS];  // Definição das variáveis globais
 int totalProdutos = 0;
 
 int exibirMenu() {
@@ -60,32 +49,32 @@ void criarProduto() {
 }
 
 void listarProdutos() {
-    int codigo;
     printf("\n=== Lista de Produtos ===\n");
     for (int i = 0; i < totalProdutos; i++) {
-        printf("Código: %d | Nome: %s | Quantidade: %d | Preço: %.2f\n", produtos[i].codigo, produtos[i].nome, produtos[i].quantidade, produtos[i].preco);
+        printf("Código: %d | Nome: %s | Quantidade: %d | Preço: %.2f\n", 
+               produtos[i].codigo, produtos[i].nome, produtos[i].quantidade, produtos[i].preco);
     }
 }
 
 void procurarProduto() {
     int codigo;
-    printf("\nDigite o c\u00f3digo do produto que deseja procurar: ");
+    printf("\nDigite o código do produto que deseja procurar: ");
     scanf("%d", &codigo);
 
     for (int i = 0; i < totalProdutos; i++) {
         if (produtos[i].codigo == codigo) {
             printf("\nProduto encontrado:\n");
-            printf("C\u00f3digo: %d\nNome: %s\nQuantidade: %d\nPre\u00e7o: %.2f\n",
+            printf("Código: %d\nNome: %s\nQuantidade: %d\nPreço: %.2f\n",
                    produtos[i].codigo, produtos[i].nome, produtos[i].quantidade, produtos[i].preco);
             return;
         }
     }
-    printf("Produto n\u00e3o encontrado!\n");
+    printf("Produto não encontrado!\n");
 }
 
 void atualizarQuantidade() {
     int codigo, novaQuantidade;
-    printf("\nDigite o c\u00f3digo do produto que deseja atualizar: ");
+    printf("\nDigite o código do produto que deseja atualizar: ");
     scanf("%d", &codigo);
 
     for (int i = 0; i < totalProdutos; i++) {
@@ -98,12 +87,12 @@ void atualizarQuantidade() {
             return;
         }
     }
-    printf("Produto n\u00e3o encontrado!\n");
+    printf("Produto não encontrado!\n");
 }
 
 void apagarProduto() {
     int codigo;
-    printf("\nDigite o c\u00f3digo do produto que deseja apagar: ");
+    printf("\nDigite o código do produto que deseja apagar: ");
     scanf("%d", &codigo);
 
     for (int i = 0; i < totalProdutos; i++) {
@@ -116,7 +105,7 @@ void apagarProduto() {
             return;
         }
     }
-    printf("Produto n\u00e3o encontrado!\n");
+    printf("Produto não encontrado!\n");
 }
 
 void exibirProdutoMaisCaro() {
@@ -152,34 +141,4 @@ void ordenarProdutos() {
         }
     }
     printf("Produtos ordenados com sucesso!\n");
-}
-
-int main() {
-    setlocale(LC_ALL, "pt_PT.utf8");
-    int opcao;
-    do {
-        opcao = exibirMenu();
-        switch (opcao) {
-            case 1: criarProduto();
-                break;
-            case 2: listarProdutos();
-                break;
-            case 3: procurarProduto();
-                break;
-            case 4: atualizarQuantidade();
-                break;
-            case 5: apagarProduto();
-                break;
-            case 6: exibirProdutoMaisCaro();
-                break;
-            case 7: calcularValorStock();
-                break;
-            case 8: ordenarProdutos();
-                break;
-            case 9: printf("Saindo...\n");
-                break;
-            default: printf("Operação Inválida! Tente novamente.\n");
-        }
-    } while (opcao != 9);
-    return 0;
 }
